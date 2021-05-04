@@ -1,16 +1,16 @@
 rm(list=ls())
-
-#Nombre de boites du ziggourat sur la moitié droite de chaques lois normales
+set.seed(5)
+#Nombre de boites du ziggourat sur la moitiÃ© droite de chaques lois normales
 numberOfBoxes=400
-#MAtrice définissant le mélange, la première colonne représente les coefficients, 
-#la deuxième colonne représente les moyennes et le troisième représente les écarts types
+#MAtrice dÃ©finissant le mÃ©lange, la premiÃ¨re colonne reprÃ©sente les coefficients, 
+#la deuxiÃ¨me colonne reprÃ©sente les moyennes et le troisiÃ¨me reprÃ©sente les Ã©carts types
 X=matrix(c(2,2,2,-1,2,1),ncol=3,byrow=TRUE)
 Ziggourat=function(r1,r2,numberOfBoxes,mu=0,sigma=1){
   const=sigma*sqrt(2*pi)
   f<-function(x){
     return ((1/const)*exp((-(x-mu)^2)/(2*sigma^2)))
   }
-  #Génere le ziggourat supérieur à la courbe sur la partie décroissante jusqu'au point r qui est le plus distants du mode entre r1 et r2
+  #GÃ©nere le ziggourat supÃ©rieur Ã  la courbe sur la partie dÃ©croissante jusqu'au point r qui est le plus distants du mode entre r1 et r2
   if(abs(mu-r1)>abs(mu-r2)){
     r=mu+abs(mu-r1)
   }
@@ -23,15 +23,15 @@ Ziggourat=function(r1,r2,numberOfBoxes,mu=0,sigma=1){
   return(list(L,Hauteurs))
 }
 ZiggouratInscrit=function(r1,r2,numberOfBoxes,mu=0,sigma=1){
-  #Génère un ziggourat supérieur à la courbe
+  #GÃ©nÃ¨re un ziggourat supÃ©rieur Ã  la courbe
   result=Ziggourat(r1,r2,numberOfBoxes+1,mu,sigma)
   L=result[1][[1]]
   Hauteurs=result[2][[1]]
-  #Décale le ziggourat vers la gauche le placer sous la courbe
+  #DÃ©cale le ziggourat vers la gauche le placer sous la courbe
   L=L[2:(length(L)-1)]
   Hauteurs=Hauteurs[2:(length(Hauteurs))]
   
-  #Copie le ziggourat par symétrie sur la partie croissante
+  #Copie le ziggourat par symÃ©trie sur la partie croissante
   L1=rev(mu-abs(mu-L[1:(length(L))]))
   cutGauche=which(L1>=r1)
   cutDroit=which(L<=r2)
@@ -46,7 +46,7 @@ ZiggouratExte=function(r1,r2,numberOfBoxes,mu=0,sigma=1){
   
   L=result[1][[1]]
   Hauteurs=result[2][[1]]
-  #Recopie le ziggourat par symétrie sur la partie croissante
+  #Recopie le ziggourat par symÃ©trie sur la partie croissante
   L1=rev(mu-abs(mu-L[2:(length(L))]))
   L=L[2:length(L)]
   cutGauche=which(L1>=r1)
@@ -62,7 +62,7 @@ ZiggouratExte=function(r1,r2,numberOfBoxes,mu=0,sigma=1){
 
 
 tracer=function(X, hauteur){
-  #Trace la courbe 2*N(2,2)-N(2,1) et le ziggourat définie par X et hauteur
+  #Trace la courbe 2*N(2,2)-N(2,1) et le ziggourat dÃ©finie par X et hauteur
   epsilon=0.00001
   Y=c()
   copie=c()
@@ -88,8 +88,8 @@ hauteur=list()
 r1=qnorm(0.001,min(X[,2]),max(X[,3]))
 r2=qnorm(0.999,max(X[,2]),max(X[,3]))
 
-#Génere les ziggourats stockés dans points et hauteurs ou points représente les abcisses de changement de hauteur
-#Et hauteur[[1]][i] représente la hauteur du ziggourat entre points[[1]][i] et points[[1]][[i+1]]
+#GÃ©nere les ziggourats stockÃ©s dans points et hauteurs ou points reprÃ©sente les abcisses de changement de hauteur
+#Et hauteur[[1]][i] reprÃ©sente la hauteur du ziggourat entre points[[1]][i] et points[[1]][[i+1]]
 for(i in 1:nrow(X)){
   if(X[i,1]>0){
     result=ZiggouratExte(r1,r2,numberOfBoxes,X[i,2],X[i,3])
@@ -149,7 +149,7 @@ CalculAire=function(L,H){
 
 
 CalculAireCumule=function(L,H){
-  #Renvoie une liste de l'aire cumulé du ziggourat
+  #Renvoie une liste de l'aire cumulÃ© du ziggourat
   Aire=c(((L[2]-L[1])*H[1]))
   for(i in 2:(length(L)-1)){
     Aire=c(Aire,Aire[length(Aire)]+((L[i+1]-L[i])*H[i]))
@@ -181,7 +181,7 @@ simulate=function(L,H,X,r1,r2,n=1000){
   res=rep(0,n)
   for(i in 1:(length(AireCumuleAjuste)-1)){
     nbGenere=0
-    #Choisis selon quel rectangle du ziggourat on va générer
+    #Choisis selon quel rectangle du ziggourat on va gÃ©nÃ©rer
     AGenerer=which(U1<AireCumuleAjuste[i+1] & U1>=AireCumuleAjuste[i])
     nbAGenerer[i]=length(AGenerer)
     #Acceptation rejet
@@ -199,7 +199,7 @@ simulate=function(L,H,X,r1,r2,n=1000){
   return(res)
 }
 res=simulate(L,H,X,r1,r2,100000)
-p1=hist(main="Répartition des valeurs générées",xlab="Valeurs",ylab="Répartition",res,breaks=100,freq=FALSE)
+p1=hist(main="RÃ©partition des valeurs gÃ©nÃ©rÃ©es",xlab="Valeurs",ylab="RÃ©partition",res,breaks=100,freq=FALSE)
 curve(2*dnorm(x,2,2)-dnorm(x,2,1),add=TRUE,col="red")
 
 
