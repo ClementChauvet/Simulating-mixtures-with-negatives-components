@@ -1,11 +1,10 @@
-#Ce programme simule le mÈlange d'un mÍme nombre de lois normales positives et nÈgatives 
-#dans le cas ou il est possible de les appareiller 2 ‡ 2 tel que a_i*f_i >=b_i*g_i
-
-
-#Matrice de paramÈtres avec a chaque ligne une nouvelle loi. 
-#La colonne 1 reprÈsente les moyennes, la 2 les ecarts types et la 3 les coefficients du mÈlange. Les n/2 premiËres lois sont celles de coefficients positif et les suivantes de coefficient nÈgatif
+#Ce programme simule le m√©lange d'un m√™me nombre de lois normales positives et n√©gatives 
+#dans le cas ou il est possible de les appareiller 2 √† 2 tel que a_i*f_i >=b_i*g_i
+set.seed(5)
+#Matrice de param√©tres avec a chaque ligne une nouvelle loi. 
+#La colonne 1 repr√©sente les moyennes, la 2 les ecarts types et la 3 les coefficients du m√©lange. Les n/2 premi√®res lois sont celles de coefficients positif et les suivantes de coefficient n√©gatif
 x<- matrix(c(1,1,0.5,0,1,1.7,0,1,-0.7,1,1,-0.5), ncol=3, byrow=TRUE)
-#Nombre de variable ‡ simuler
+#Nombre de variable √† simuler
 n=1000
 
 positive <- function(mu_1, sigma_1, alpha, mu_2, sigma_2, beta){
