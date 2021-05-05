@@ -1,13 +1,13 @@
-#Ce programme permet de simuler 100000 variables suivants la loi tronquée 2*N(2,2) -N(0,1)
+#Ce programme permet de simuler 1000000 variables suivants la loi tronque 2*N(2,2) -N(0,1)
 rm(list=ls())
 set.seed(5)
 
 #Nombre de boites du ziggourat 
 numberOfBoxes=30
-#MAtrice définissant le mélange, la première colonne représente les coefficients, 
-#la deuxième colonne représente les moyennes et le troisième représente les écarts types
+#MAtrice d�efinissant le melange, la premiere colonne represente les coefficients, 
+#la deuxieme colonne représente les moyennes et le troisieme represente les ecarts types
 X=matrix(c(2,2,2,-1,2,1),ncol=3,byrow=TRUE)
-#Nombre de variables simulées
+#Nombre de variables simulees
 n=1000000
 const=1/sqrt(2*pi)
 f<-function(x,mu=0,sigma=1){
@@ -28,7 +28,7 @@ ZiggouratInscrit=function(L,mu=0,sigma=1){
   return(c(-H2,-H[2:length(H)]))
 }
 ZiggouratExte=function(L,mu=0,sigma=1){
-  #Génere un ziggourat au dessus de la courbe
+  #Genere un ziggourat au dessus de la courbe
   SupMu=which(L>=mu)
   L1=L[SupMu]
   H=f(L1,mu,sigma)
@@ -41,7 +41,7 @@ ZiggouratExte=function(L,mu=0,sigma=1){
 }
 
 tracer=function(L, hauteur,X){
-  #Trace la courbe de densité du mélange X et le ziggourat définie par L et hauteur
+  #Trace la courbe de densite du melange X et le ziggourat definie par L et hauteur
   epsilon=0.00001
   Y=c()
   copie=c()
@@ -111,7 +111,7 @@ CalculAire=function(L,H){
 
 
 CalculAireCumule=function(L,H){
-  #Renvoie une liste de l'aire cumulé du ziggourat
+  #Renvoie une liste de l'aire cumule du ziggourat
   Aire=c(((L[2]-L[1])*H[1]))
   for(i in 2:(length(L)-1)){
     Aire=c(Aire,Aire[length(Aire)]+((L[i+1]-L[i])*H[i]))
@@ -122,7 +122,7 @@ CalculAireCumule=function(L,H){
 
 
 
-#simulate=function(L,H,X,r1,r2,n=1000){
+simulate=function(L,H,X,r1,r2,n=1000){
   f=function(x){
     y=0
     for(i in 1:nrow(X)){
@@ -143,7 +143,7 @@ CalculAireCumule=function(L,H){
     nbAGenerer=rep(0,length(H))
     for(i in 1:length(H)){
       nbGenere=0
-      #Choisis selon quel rectangle du ziggourat on va générer
+      #Choisis selon quel rectangle du ziggourat on va generer
       if(i==1){
         AGenerer=which(U1<AireCumuleAjuste[i])
       }
@@ -165,10 +165,11 @@ CalculAireCumule=function(L,H){
     }
     nonGenere=which(res==0)
   }
-#  return(res)
-#}
-#res=simulate(L,H,X,r1,r2,n)
-p1=hist(main="Répartition des valeurs générées",xlab="Valeurs",ylab="Répartition",res,breaks=100,freq=FALSE)
+  return(res)
+}
+res=simulate(L,H,X,r1,r2,n)
+print(res)
+p1=hist(main="Repartition des valeurs generees",xlab="Valeurs",ylab="Repartition",res,breaks=100,freq=FALSE)
 curve(2*dnorm(x,2,2)-dnorm(x,2,1),add=TRUE,col="red")
 
 

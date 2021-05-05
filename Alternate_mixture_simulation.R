@@ -6,7 +6,7 @@
 #La colonne 1 représente les moyennes, la 2 les ecarts types et la 3 les coefficients du mélange. Les n/2 premières lois sont celles de coefficients positif et les suivantes de coefficient négatif
 x<- matrix(c(1,1,0.5,0,1,1.7,0,1,-0.7,1,1,-0.5), ncol=3, byrow=TRUE)
 #Nombre de variable à simuler
-n=1000
+n=10000
 
 positive <- function(mu_1, sigma_1, alpha, mu_2, sigma_2, beta){
   
