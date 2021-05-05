@@ -1,7 +1,7 @@
 #Ce programme simule le mélange d'un même nombre de lois normales positives et négatives 
 #dans le cas ou il est possible de les appareiller 2 à 2 tel que a_i*f_i >=b_i*g_i
 
-
+set.seed(5)
 #Matrice de paramétres avec a chaque ligne une nouvelle loi. 
 #La colonne 1 représente les moyennes, la 2 les ecarts types et la 3 les coefficients du mélange. Les n/2 premières lois sont celles de coefficients positif et les suivantes de coefficient négatif
 x<- matrix(c(1,1,0.5,0,1,1.7,0,1,-0.7,1,1,-0.5), ncol=3, byrow=TRUE)
