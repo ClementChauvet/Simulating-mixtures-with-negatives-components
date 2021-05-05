@@ -1,4 +1,4 @@
-Les fichiers de ce blocs sont les implémentations de notre mémoire que vous pouvez retrouver ici:
+Les fichiers de ce blocsont les implémentations de notre mémoire que vous pouvez retrouver ici:
 
 Le fichier "Alternate_mixture_simulation.R" permet de simuler un mélange à coefficient alterné de lois normales dans certains cas et est une amélioration par rapport à l'algorithme de Bignami et De Matteis. L'exemple programme est celui de 10000 de variable du mélange 0.5*N(1,1)+1.7*N(0,1)-0.7*N(0,1)-0.5*N(1,1)
 
